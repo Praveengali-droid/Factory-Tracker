@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Furdo Tracker Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+      html,
+      body,
+      #root {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        background: #fafaf8;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      style="display:flex;align-items:center;justify-content:center;padding:24px;color:#6b6b65"
+    >
+      Loading Furdo tracker preview...
+    </div>
+
+    <script>
+      function iconFactory(draw) {
+        return function Icon(props) {
+          var size = props && props.size ? props.size : 18;
+          var strokeWidth = props && props.strokeWidth ? props.strokeWidth : 2;
+          var className = props && props.className ? props.className : "";
+          var style = props && props.style ? props.style : {};
+          return React.createElement(
+            "svg",
+            {
+              xmlns: "http://www.w3.org/2000/svg",
+              width: size,
+              height: size,
+              viewBox: "0 0 24 24",
+              fill: "none",
+              stroke: "currentColor",
+              strokeWidth: strokeWidth,
+              strokeLinecap: "round",
+              strokeLinejoin: "round",
+              className: className,
+              style: style,
+            },
+            draw()
+          );
+        };
+      }
+
+      function line(x1, y1, x2, y2, key) {
+        return React.createElement("line", { x1: x1, y1: y1, x2: x2, y2: y2, key: key });
+      }
+
+      function path(d, key) {
+        return React.createElement("path", { d: d, key: key });
+      }
+
+      function circle(cx, cy, r, key) {
+        return React.createElement("circle", { cx: cx, cy: cy, r: r, key: key });
+      }
+
+      var Search = iconFactory(function () {
+        return [circle(11, 11, 7, "c"), line(20, 20, 16.5, 16.5, "l")];
+      });
+      var Plus = iconFactory(function () {
+        return [line(12, 5, 12, 19, "v"), line(5, 12, 19, 12, "h")];
+      });
+      var ChevronDown = iconFactory(function () {
+        return [path("m6 9 6 6 6-6", "p")];
+      });
+      var ChevronRight = iconFactory(function () {
+        return [path("m9 6 6 6-6 6", "p")];
+      });
+      var Settings = iconFactory(function () {
+        return [circle(12, 12, 3, "c"), path("M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.65 1.65 0 0 0 15 19.4a1.65 1.65 0 0 0-1 .6 1.65 1.65 0 0 0-.33 1V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82-.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-.6-1 1.65 1.65 0 0 0-1-.33H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.6-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6c.38-.16.74-.4 1-.6A1.65 1.65 0 0 0 10.33 3H10a2 2 0 1 1 4 0h-.09A1.65 1.65 0 0 0 15 4.6c.26.2.62.44 1 .6a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.16.38.4.74.6 1 .2.26.44.62.6 1H21a2 2 0 1 1 0 4h-.09A1.65 1.65 0 0 0 19.4 15Z", "p")];
+      });
+      var ArrowLeft = iconFactory(function () {
+        return [line(19, 12, 5, 12, "h"), path("m12 19-7-7 7-7", "p")];
+      });
+      var Factory = iconFactory(function () {
+        return [path("M3 21h18", "b"), path("M5 21V9l8-4v4l6-3v15", "p"), path("M9 9v.01", "a"), path("M9 13v.01", "b"), path("M9 17v.01", "c"), path("M13 13v.01", "d"), path("M13 17v.01", "e"), path("M17 13v.01", "f"), path("M17 17v.01", "g")];
+      });
+      var LayoutDashboard = iconFactory(function () {
+        return [path("M3 13h8V3H3z", "a"), path("M13 21h8v-6h-8z", "b"), path("M13 3h8v6h-8z", "c"), path("M3 21h8v-6H3z", "d")];
+      });
+      var FolderOpen = iconFactory(function () {
+        return [path("m3 19 3-10h15l-3 10H3Z", "a"), path("M3 7h5l2 2h11", "b")];
+      });
+      var Trash2 = iconFactory(function () {
+        return [path("M3 6h18", "a"), path("M8 6V4h8v2", "b"), path("M19 6l-1 14H6L5 6", "c"), line(10, 11, 10, 17, "d"), line(14, 11, 14, 17, "e")];
+      });
+      var Edit = iconFactory(function () {
+        return [path("M12 20h9", "a"), path("M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z", "b")];
+      });
+      var X = iconFactory(function () {
+        return [line(18, 6, 6, 18, "a"), line(6, 6, 18, 18, "b")];
+      });
+      var AlertTriangle = iconFactory(function () {
+        return [path("M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z", "a"), line(12, 9, 12, 13, "b"), line(12, 17, 12.01, 17, "c")];
+      });
+      var Download = iconFactory(function () {
+        return [path("M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", "a"), line(7, 10, 12, 15, "b"), line(12, 15, 17, 10, "c"), line(12, 15, 12, 3, "d")];
+      });
+      var Upload = iconFactory(function () {
+        return [path("M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", "a"), line(7, 8, 12, 3, "b"), line(12, 3, 17, 8, "c"), line(12, 3, 12, 15, "d")];
+      });
+      var Calendar = iconFactory(function () {
+        return [path("M8 2v4", "a"), path("M16 2v4", "b"), path("M3 10h18", "c"), path("M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z", "d")];
+      });
+      var User = iconFactory(function () {
+        return [circle(12, 8, 4, "a"), path("M4 21a8 8 0 0 1 16 0", "b")];
+      });
+      var MapPin = iconFactory(function () {
+        return [path("M12 21s-6-5.33-6-11a6 6 0 1 1 12 0c0 5.67-6 11-6 11Z", "a"), circle(12, 10, 2, "b")];
+      });
+      var ChevronUp = iconFactory(function () {
+        return [path("m18 15-6-6-6 6", "p")];
+      });
+
+      function showError(message) {
+        document.getElementById("root").innerHTML =
+          '<div style="max-width:720px;padding:24px;color:#c5221f">' +
+          '<h1 style="margin:0 0 12px;font-size:20px">Preview failed to load</h1>' +
+          '<pre style="white-space:pre-wrap;font-family:inherit">' +
+          String(message) +
+          "</pre></div>";
+      }
+
+      (async function bootstrap() {
+        try {
+          var jsxResponse = await fetch("./FurdoFactoryTracker.jsx", { cache: "no-store" });
+          if (!jsxResponse.ok) {
+            throw new Error("Could not load FurdoFactoryTracker.jsx");
+          }
+
+          var jsxSource = await jsxResponse.text();
+          var sanitized = jsxSource
+            .replace(/import[\s\S]*?from\s+["'][^"']+["'];?\n/g, "")
+            .replace(/export default function App\s*\(/, "function App(");
+
+          var transformed = Babel.transform(sanitized, {
+            presets: [["react", { runtime: "classic" }]],
+            sourceType: "script",
+          }).code;
+
+          var factory = new Function(
+            "React",
+            "ReactDOM",
+            "useState",
+            "useEffect",
+            "useReducer",
+            "useCallback",
+            "useMemo",
+            "useRef",
+            "Search",
+            "Plus",
+            "ChevronDown",
+            "ChevronRight",
+            "Settings",
+            "ArrowLeft",
+            "Factory",
+            "LayoutDashboard",
+            "FolderOpen",
+            "Trash2",
+            "Edit",
+            "X",
+            "AlertTriangle",
+            "Download",
+            "Upload",
+            "Calendar",
+            "User",
+            "MapPin",
+            "ChevronUp",
+            transformed + "\nreturn App;"
+          );
+
+          var App = factory(
+            React,
+            ReactDOM,
+            React.useState,
+            React.useEffect,
+            React.useReducer,
+            React.useCallback,
+            React.useMemo,
+            React.useRef,
+            Search,
+            Plus,
+            ChevronDown,
+            ChevronRight,
+            Settings,
+            ArrowLeft,
+            Factory,
+            LayoutDashboard,
+            FolderOpen,
+            Trash2,
+            Edit,
+            X,
+            AlertTriangle,
+            Download,
+            Upload,
+            Calendar,
+            User,
+            MapPin,
+            ChevronUp
+          );
+
+          ReactDOM.createRoot(document.getElementById("root")).render(
+            React.createElement(App)
+          );
+        } catch (error) {
+          console.error(error);
+          showError(error && error.message ? error.message : error);
+        }
+      })();
+    </script>
+  </body>
+</html>
